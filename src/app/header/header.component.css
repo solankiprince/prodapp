@@ -1,0 +1,11 @@
+.topnav .search-container button:hover {
+  background: #ccc;
+}
+
+.topnav .search-container button {
+  cursor: pointer;
+}
+
+.search-container{
+  padding-right: unset;
+}

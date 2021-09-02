@@ -1,0 +1,83 @@
+<div class="card">
+  <div class="card-header">
+    <h1>Product Application</h1>
+       <div style="float:right">Welcome {{loggedUser}} |
+        <a href="#" (click)="logout()">Logout</a>
+       </div>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-lg-6 border-right">
+        <header class="modal-header">
+          <h2><u>Products List</u></h2>
+        </header>
+        <input class="form-control" type="text" name="name" [(ngModel)]="name" (ngModelChange)="Search()" placeholder="Enter Product Name to Search..">
+        <div class="table-wrapper ">
+          <br/>
+         <table class="table table-hover table-bordered">
+           <thead>
+           <tr>
+             <th>Action</th>
+             <th>Id</th>
+             <th>Name</th>
+             <th>Price</th>
+             <th>Desription</th>
+             <th>Created</th>
+             <th>Added_By</th>
+           </tr>
+          </thead>
+           <tr *ngFor="let product of productlist | paginate: {itemsPerPage:5,currentPage:p};">
+           <td><input type="radio" (change)="onselect(product,btn)" name="r1"></td>
+            <td>{{product.Id}}</td>
+            <td>{{product.name}}</td>
+            <td>{{product.price}}</td>
+            <td>{{product.description}}</td>
+            <td>{{product.created}}</td>
+            <td>{{product.added}}</td>
+           </tr>
+           <pagination-controls (pageChange)="p = $event"></pagination-controls>
+         </table>
+        </div>
+      </div>
+      <div class="col-lg-6">
+         <header class="modal-header">
+           <h2><u>Update/Delete Product</u></h2>
+          </header>
+          <br>
+          <form #productData="ngForm">
+           <div class="form-group">
+             <label>Id :</label>
+             <input type="text" [ngModel]="selectedproduct.Id" name="Id"  class="form-control" required>
+           </div>
+           <div class="form-group">
+             <label>Name :</label>
+             <input type="text"[ngModel]="selectedproduct.name" name="name" class="form-control" required>
+           </div>
+           <div class="form-group">
+             <label>Price :</label>
+             <input type="text" [ngModel]="selectedproduct.price" name="price" class="form-control" required>
+           </div>
+           <div class="form-group">
+            <label>Description :</label>
+            <input type="text" [ngModel]="selectedproduct.description" name="description" class="form-control" required>
+          </div>
+           <div class="form-group">
+             <label>Created :</label>
+             <input type="date" [ngModel]="selectedproduct.created" name="created" class="form-control" required>
+           </div>
+           <div class="form-group">
+            <label>Added_By :</label>
+            <input type="text" [ngModel]="selectedproduct.added" name="added" class="form-control" required>
+          </div>
+           <div class="form-group">
+             <button type="button" #btn (click)="onsubmit(productData,btn)" class="btn btn-sm btn-primary">Add</button>
+             &nbsp;&nbsp;
+             <button (click)="delproduct(selectedproduct._id)" *ngIf="selectedproduct._id!=null" class="btn-btn-sm btn-danger">Delete</button>
+           </div>
+         </form>
+         </div>
+
+  </div>
+ </div>
+
+</div>
